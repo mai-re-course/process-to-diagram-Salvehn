@@ -1,0 +1,29 @@
+@startuml
+
+start
+
+:Search google.com;
+if (exists in HSTS list?) then (Yes)
+  :Use HTTPS;
+else (Нет)
+  :Use HTTP;
+endif
+if (exixts in DNS cache?) then (Yes)
+    :DNS cache lookup;
+    :Connect to cached IP;
+else (Нет)
+    :Request TCP socket;
+    :Request TLS handshake;
+    :Response to TLS handshake;
+    :Send HTTP-Response;
+    :Send Response;
+endif
+:Parse response body;
+:Parse HTML and JS execution;
+:CSS interpretation;
+:Render page;
+:Show page to client;
+
+stop
+
+@enduml
