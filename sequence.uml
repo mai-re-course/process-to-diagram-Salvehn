@@ -6,13 +6,13 @@ entity DNS_Server
 entity Server
 
 User -> Browser : Search request
-Browser-> Browser : Check HSTS list
-Browser -> Browser : Search for domain in DNS cache
+note over Browser: Check HSTS list
+note over Browser : Search for domain in DNS cache
 alt Desired domain doesn't exist in DNS cache
     Browser -> DNS_Server : ARP-request
     DNS_Server --> Browser : ARP-response
 end
-Browser -> Browser : Request TCP-socket
+note over Browser : Request TCP-socket
 Browser -> Server : Request TLS handshake
 Server --> Browser : TLS handshake response
 Browser -> Server : Send HTTP-request
@@ -20,11 +20,11 @@ alt Server responded to previously sended request
     Server --> Browser : Send response
 else
     Server --> Browser : Send response "304 Not modified"
-    Browser -> Browser : Get cached HTML
+    note over Browser : Get cached HTML
 end
-Browser -> Browser : Parse HTML
-Browser -> Browser : CSS interpretation
-Browser -> Browser : Page rendering
+note over Browser: Parse HTML
+note over Browser : CSS interpretation
+note over Browser : Page rendering
 Browser --> User : Show page
 
 @enduml
